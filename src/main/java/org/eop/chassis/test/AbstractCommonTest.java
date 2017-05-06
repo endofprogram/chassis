@@ -10,6 +10,6 @@ import org.junit.runners.MethodSorters;
  */
 @RunWith(TestClassInstanciateOnlyOnceBlockJUnit4ClassRunner.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public abstract class AbstractGroovyTest {
+public abstract class AbstractCommonTest {
 
 }
