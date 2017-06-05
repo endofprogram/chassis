@@ -1,6 +1,7 @@
 package org.eop.chassis.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 /**
@@ -144,4 +145,8 @@ public final class ListUtil {
 		return new ArrayList<>(size);
 	}
 	
+	@SafeVarargs
+	public static <T> List<T> newList(T... values) {
+		return new ArrayList<>(Arrays.asList(values));
+	}
 }

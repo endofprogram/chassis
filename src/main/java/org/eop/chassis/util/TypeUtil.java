@@ -17,7 +17,6 @@ public final class TypeUtil {
 		
 	}
 	
-	
 	public static BigDecimal toBigDecimal(Object value) {
 		return toType(value, BigDecimal.class);
 	}
@@ -36,6 +35,10 @@ public final class TypeUtil {
 	
 	public static Date toDate(Object value) {
 		return toType(value, Date.class);
+	}
+	
+	public static Date toDate(Object value, String format) {
+		return toType(value, Date.class, format);
 	}
 	
 	public static Double toDouble(Object value) {
@@ -63,6 +66,17 @@ public final class TypeUtil {
 	
 	public static Timestamp toTimestamp(Object value) {
 		return toType(value, Timestamp.class);
+	}
+	
+	public static Timestamp toTimestamp(Object value, String format) {
+		return toType(value, Timestamp.class, format);
+	}
+	
+	public static <T> List<T> toList(Object value) {
+		if (value instanceof List<?>) {
+			return asListType(value);
+		}
+		return asListType(ListUtil.newList(value));
 	}
 	
 	public static <T> T toType(Object value, Class<T> type) {
@@ -147,7 +161,11 @@ public final class TypeUtil {
 			if (value instanceof Timestamp) {
 				return asType(value);
 			}
-			return asType(Timestamp.valueOf(value.toString()));
+			try {
+				return asType(new Timestamp(new SimpleDateFormat(format).parse(value.toString()).getTime()));
+			} catch (ParseException e) {
+				throw new RuntimeException(e);
+			}
 		}
 		if (type == Object.class) {
 			return asType(value);
